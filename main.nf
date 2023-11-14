@@ -4,6 +4,10 @@ nextflow.enable.dsl=2
 
 include { example_process } from './modules/example_module'
 
+include { publish } from './modules/utils'
+include { split } from './modules/utils'
+include { concatenate } from './modules/utils'
+
 // ===== //
 
 workflow EXAMPLE_WORKFLOW {

@@ -1,12 +1,16 @@
 # Project template
 
-This repository contains a template to develop a reproducible, portable, and scalable workflow.
+This repository contains a template to develop a reproducible, portable, and scalable workflow. The **only** requirements are [Nextflow](https://www.nextflow.io) and [Singularity](https://apptainer.org). A project and the associated software environment is meant to be fully self-contained in this repository and to be deployed immediately after cloning it, with minimal tweaks to [`nextflow.config`](#nextflowconfig), on any machine or cluster, by simply running
+
+```
+nextflow run main.nf
+```
 
 ## README.md
 
 The file you are reading. It should contain a brief description of the project, and any other relevant information, such as links to documentation or papers.
 
-It may be useful to provide the following command, which is sufficient to run the full project's workflow from this repository:
+It may be useful to provide the following command, which is sufficient to run the full project's workflow from this repository, specifying the configuration file and a path for the optional worflow DAG diagram:
 
 
 ```
@@ -30,15 +34,15 @@ All executable scripts in `bin/` can be directly called in Nextflow processes as
 
 ## env/
 
-Here there should be found the [Singularity](https://docs.sylabs.io/guides/latest/user-guide/) image(s) and the corresponding [Dockerfile](https://docs.docker.com/engine/reference/builder/)(s).
-The [`nextflow.config`](#nextflow.config) instructs Nextflow to automatically run processes in software containers spawned from the specified Singularity image.
-In this way the software environment required by the workflow is portable and self-contained with this repository.
+Here it should be found the [Singularity](https://docs.sylabs.io/guides/latest/user-guide/) image(s) and the corresponding [Dockerfile](https://docs.docker.com/engine/reference/builder/)(s).
+The [`nextflow.config`](#nextflowconfig) instructs Nextflow to automatically run processes in software containers spawned from the specified Singularity image.
+In this way the software environment required by the workflow is portable and self-contained in this repository.
 
 As a reminder, a Singularity image can be created starting from a Dockerfile by first building a Docker image. For example:
 
 ```
 docker build -t project - < env/project.dockerfile
-singularity build project.sif docker-daemon://project:latest
+singularity build env/project.sif docker-daemon://project:latest
 ``` 
 
 ## misc/
@@ -52,6 +56,8 @@ It may also contain images that are displayed in this README file, like this:
 
 Store here Nextflow scripts. Large workflows benefit from being split into multiple [modules](https://training.nextflow.io/basic_training/modules/) that contain libraries of process and/or workflow definitions, which can be imported into other Nextflow scripts, like [`main.nf`](#main.nf).
 
+A module `utils.nf` is provided with this repository and contains three useful, general purpose processes: `publish()`, `split()`, and `concatenate()`.
+
 ## src/
 
-If you are developing software packages for the project they should live in `src/`. Executables may be symbolically linked in [bin/](#bin) so that they can be called by Nextflow processes.
+If you are developing software packages for your project they should live in `src/`. Executables may be symbolically linked in [bin/](#bin) so that they can be called within Nextflow processes.
