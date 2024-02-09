@@ -1,10 +1,12 @@
 # Project template
 
-This repository contains a template to develop a reproducible, portable, and scalable workflow. The **only** requirements are [Nextflow](https://www.nextflow.io) and [Singularity](https://apptainer.org). A project and the associated software environment is meant to be fully self-contained in this repository and to be deployed immediately after cloning it, with minimal tweaks to [`nextflow.config`](#nextflowconfig), on any machine or cluster, by simply running
+This repository is a template to develop a reproducible, portable, and scalable workflow. The **only** requirements are [Nextflow](https://www.nextflow.io) and [Singularity](https://apptainer.org). A project and the associated software environment are meant to be fully self-contained in the repository and to be deployed immediately after cloning it, with minimal tweaks to [`nextflow.config`](#nextflowconfig), on any machine or cluster, by simply running
 
 ```
 nextflow run main.nf
 ```
+
+The following is a list of brief description of the files and directories to be found in this project template:
 
 ## README.md
 
@@ -20,7 +22,10 @@ nextflow run main.nf -c nextflow.config -resume -with-dag misc/flowchart.svg
 ## main.nf
 
 The main [Nextflow script](https://www.nextflow.io/docs/latest/script.html), containing the workflow that will be executed when calling `nextflow run`.
+
 Typically it will contain only [workflow](https://www.nextflow.io/docs/latest/workflow.html) definitions, while [process](https://www.nextflow.io/docs/latest/process.html) definitions may be organised in the [`modules/`](#modules/) directory and imported in the main Nextflow file to keep it more readable.
+
+It already contains `PUBLISH_CONFIG()`, which is used to save the [`nextflow.config`](#nextflowconfig) file among the output files whenever the workflow is ran. This is important to automatically keep track of potential tunable parameters specified in `nextflow.config` on which the workflow's results will depend.
 
 ## nextflow.config
 
@@ -43,7 +48,7 @@ As a reminder, a Singularity image can be created starting from a Dockerfile by 
 ```
 docker build -t project - < env/project.dockerfile
 singularity build env/project.sif docker-daemon://project:latest
-``` 
+```
 
 ## misc/
 

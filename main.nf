@@ -20,8 +20,20 @@ workflow EXAMPLE_WORKFLOW {
 
 }
 
+workflow PUBLISH_CONFIG {
+
+    main:
+        config_ch = Channel.fromPath("${projectDir}/nextflow.config")
+        val_ch = Channel.of('workflow/nextflow.config')
+        
+        publish( val_ch.combine( config_ch ) )
+
+}
+
 workflow {
 
     EXAMPLE_WORKFLOW()
+
+    PUBLISH_CONFIG()
 
 }
