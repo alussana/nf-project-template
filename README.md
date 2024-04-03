@@ -1,12 +1,12 @@
 # Project template
 
-This repository is a template to develop a reproducible, portable, and scalable workflow. The **only** requirements are [Nextflow](https://www.nextflow.io) and [Singularity](https://apptainer.org). A project and the associated software environment are meant to be fully self-contained in the repository and to be deployed immediately after cloning it, with minimal tweaks to [`nextflow.config`](#nextflowconfig), on any machine or cluster, by simply running
+This repository is a template to develop a reproducible, portable, and scalable workflow. The **only** requirements to run it are [Nextflow](https://www.nextflow.io) and [Apptainer](https://apptainer.org). A project and the associated software environment are meant to be fully self-contained in the repository and to be deployed with minimal tweaks to [`nextflow.config`](#nextflowconfig), on any machine or cluster, by simply running:
 
-```
+```bash
 nextflow run main.nf
 ```
 
-The following is a list of brief description of the files and directories to be found in this project template:
+The following is a list of brief descriptions of the files and directories to be found in this project template:
 
 ## README.md
 
@@ -15,7 +15,7 @@ The file you are reading. It should contain a brief description of the project, 
 It may be useful to provide the following command, which is sufficient to run the full project's workflow from this repository, specifying the configuration file and a path for the optional worflow DAG diagram:
 
 
-```
+```bash
 nextflow run main.nf -c nextflow.config -resume -with-dag misc/flowchart.svg
 ```
 
@@ -39,15 +39,15 @@ All executable scripts in `bin/` can be directly called in Nextflow processes as
 
 ## env/
 
-Here it should be found the [Singularity](https://docs.sylabs.io/guides/latest/user-guide/) image(s) and the corresponding [Dockerfile](https://docs.docker.com/engine/reference/builder/)(s).
-The [`nextflow.config`](#nextflowconfig) instructs Nextflow to automatically run processes in software containers spawned from the specified Singularity image.
-In this way the software environment required by the workflow is portable and self-contained in this repository.
+Here are the [Singularity](https://docs.sylabs.io/guides/latest/user-guide/) image(s) and the corresponding [Dockerfile](https://docs.docker.com/engine/reference/builder/)(s).
+The [`nextflow.config`](#nextflowconfig) instructs Nextflow to run processes in software containers spawned from the specified Singularity image.
 
-As a reminder, a Singularity image can be created starting from a Dockerfile by first building a Docker image. For example:
+Due to space reasons, it might be that only the Dockerfile(s) could be conveniently stored in remote repositories. This should be sufficient to grant reproducibility. As a reminder, a Singularity image can be created starting from a Dockerfile by first building a Docker image, _e.g._:
 
-```
+```bash
 docker build -t project - < env/project.dockerfile
-singularity build env/project.sif docker-daemon://project:latest
+docker save -o env/project.tar.gz project
+singularity build env/project.sif docker-archive://project:latest
 ```
 
 ## misc/

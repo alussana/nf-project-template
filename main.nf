@@ -26,7 +26,7 @@ workflow PUBLISH_CONFIG {
         config_ch = Channel.fromPath("${projectDir}/nextflow.config")
         val_ch = Channel.of('workflow/nextflow.config')
         
-        publish( val_ch.combine( config_ch ) )
+        publish( config_ch, val_ch )
 
 }
 
