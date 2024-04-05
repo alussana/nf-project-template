@@ -47,7 +47,7 @@ Due to space reasons, it might be that only the Dockerfile(s) could be convenien
 ```bash
 docker build -t project - < env/project.dockerfile
 docker save -o env/project.tar.gz project
-singularity build env/project.sif docker-archive://project:latest
+singularity build env/project.sif docker-archive://env/project.tar.gz
 ```
 
 ## misc/
