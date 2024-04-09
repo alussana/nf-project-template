@@ -12,12 +12,13 @@ The following is a list of brief descriptions of the files and directories to be
 
 The file you are reading. It should contain a brief description of the project, and any other relevant information, such as links to documentation or papers.
 
-It may be useful to provide the following command, which is sufficient to run the full project's workflow from this repository, specifying the configuration file and a path for the optional worflow DAG diagram:
-
+It may be useful to provide the following command, which is sufficient to run the full project's workflow, specifying the configuration file and a path for the optional worflow DAG diagram:
 
 ```bash
 nextflow run main.nf -c nextflow.config -resume -with-dag misc/flowchart.svg
 ```
+
+See also the [README template](misc/README-template.md) provided with this repository, which gives concise instructions to reproduce a project.
 
 ## main.nf
 
