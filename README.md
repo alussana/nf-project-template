@@ -43,7 +43,7 @@ All executable scripts in `bin/` can be directly called in Nextflow processes as
 Here are the [Singularity](https://docs.sylabs.io/guides/latest/user-guide/) image(s) and the corresponding [Dockerfile](https://docs.docker.com/engine/reference/builder/)(s).
 The [`nextflow.config`](#nextflowconfig) instructs Nextflow to run processes in software containers spawned from the specified Singularity image.
 
-Due to space reasons, it might be that only the Dockerfile(s) could be conveniently stored in remote repositories. This should be sufficient to grant reproducibility. As a reminder, a Singularity image can be created starting from a Dockerfile by first building a Docker image, _e.g._:
+Due to space reasons, it might be that only the Dockerfile(s) could be conveniently stored in remote repositories. This should be sufficient to grant reproducibility. As a reminder, a Singularity image can be created starting from a Dockerfile, _e.g._:
 
 ```bash
 docker build -t project - < env/project.dockerfile
