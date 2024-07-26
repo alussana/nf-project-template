@@ -1,6 +1,6 @@
 # AwesomeProject
 
-This is a README template for a project named AwesomeProject.
+This is a README template for a project named AwesomeProject. It's supposed to live in the top level directory of the project and be named `README.md`.
 
 ## Build the container image
 
