@@ -26,12 +26,18 @@ The main [Nextflow script](https://www.nextflow.io/docs/latest/script.html), con
 
 Typically it will contain only [workflow](https://www.nextflow.io/docs/latest/workflow.html) definitions, while [process](https://www.nextflow.io/docs/latest/process.html) definitions may be organised in the [`modules/`](#modules/) directory and imported in the main Nextflow file to keep it more readable.
 
-It already contains `PUBLISH_CONFIG()`, which is used to save the [`nextflow.config`](#nextflowconfig) file among the output files whenever the workflow is ran. This is important to automatically keep track of potential tunable parameters specified in `nextflow.config` on which the workflow's results will depend.
+It already contains `PUBLISH_CONFIG()`, which is used to save the [`nextflow.config`](#nextflowconfig) file among the output files whenever the workflow is ran. This is useful to automatically keep track of potential tunable parameters specified in `nextflow.config` on which the workflow's results will depend.
 
 ## nextflow.config
 
 The Nextflow [configuration](https://www.nextflow.io/docs/latest/config.html) file.
 It already contains a few parameters for a number of different scopes, you will typically need to modify `process.executor`, `process.queue`, `workDir`, and `env.out_dir` to adapt them to the infrastructure where the workflow will be executed.
+
+Alternatively, as a minimal example to run the workflow locally, just replace the `nextflow.config` with `misc/nextflow-local.config` (a backup `nextflow.config~` will be created):
+
+```bash
+mv misc/nextflow-local.config nextflow.config -b
+```
 
 ## bin/
 
@@ -40,7 +46,7 @@ All executable scripts in `bin/` can be directly called in Nextflow processes as
 
 ## env/
 
-Here are the [Singularity](https://docs.sylabs.io/guides/latest/user-guide/) image(s) and the corresponding [Dockerfile](https://docs.docker.com/engine/reference/builder/)(s).
+Here are the [Apptainer](https://apptainer.org/docs/user/latest/) image(s) and the corresponding [Dockerfile](https://docs.docker.com/engine/reference/builder/)(s).
 The [`nextflow.config`](#nextflowconfig) instructs Nextflow to run processes in software containers spawned from the specified Singularity image.
 
 Due to space reasons, it might be that only the Dockerfile(s) could be conveniently stored in remote repositories. This should be sufficient to grant reproducibility. As a reminder, a Singularity image can be created starting from a Dockerfile, _e.g._:
@@ -48,8 +54,10 @@ Due to space reasons, it might be that only the Dockerfile(s) could be convenien
 ```bash
 docker build -t project - < env/project.dockerfile
 docker save -o env/project.tar.gz project
-singularity build env/project.sif docker-archive://env/project.tar.gz
+apptainer build env/project.sif docker-archive://env/project.tar.gz
 ```
+
+An example Dockerfile to build a relatively large Debian-based image for deep learning and data science is provided with this repository in `env/project.dockerfile`. Note that no package versions (e.g. `numpy==2.2.6`) have been specified. For real projects, making sure to specify package versions helps ensuring that the exact same imgae is built every time.
 
 ## misc/
 

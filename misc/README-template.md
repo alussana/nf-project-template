@@ -7,9 +7,9 @@ This is a README template for a project named AwesomeProject. It's supposed to l
 Requires [Docker](https://www.docker.com) and [Apptainer](https://apptainer.org).
 
 ```bash
-docker build -t awesomeproject - < env/Dockerfile
+docker build -t awesomeproject - < env/awsomeproject.dockerfile
 docker save -o env/awesomeproject.tar.gz awesomeproject
-singularity build env/awesomeproject.sif docker-archive://env/awesomeproject.tar.gz
+apptainer build env/awesomeproject.sif docker-archive://env/awesomeproject.tar.gz
 ```
 
 ## Customise `nextflow.config`
