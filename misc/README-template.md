@@ -25,7 +25,5 @@ mv misc/nextflow-local.config nextflow.config -b
 ## Run the workflow
 
 ```bash
-nextflow run main.nf -resume -c nextflow.config -with-dag misc/flowchart.svg
+nextflow run main.nf -resume -c nextflow.config
 ```
-
-![flowchart](misc/flowchart.svg)

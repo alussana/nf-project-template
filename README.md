@@ -70,7 +70,7 @@ It may also contain images that are displayed in this README file, like this:
 
 Store here Nextflow scripts. Large workflows benefit from being split into multiple [modules](https://training.nextflow.io/basic_training/modules/) that contain libraries of process and/or workflow definitions, which can be imported into other Nextflow scripts, like [`main.nf`](#main.nf).
 
-A module `utils.nf` is provided with this repository and contains three useful, general purpose processes: `publish()`, `split()`, and `concatenate()`.
+A module `utils.nf` is provided with this repository containing a few general-purpose processes: `publish()`, `split()`, `concatenate()`, and `path2val()`.
 
 ## src/
 

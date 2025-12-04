@@ -71,3 +71,22 @@ process concatenate {
     """
 
 }
+
+
+/*
+read an input file and emit its contents as a value
+*/
+process path2val {
+
+    input:
+        path "input/file.txt"
+
+    output:
+        env var
+
+    script:
+    """
+    var=\$(cat input/file.txt)
+    """
+
+}
